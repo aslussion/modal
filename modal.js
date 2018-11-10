@@ -28,7 +28,6 @@ function modalWindowCreate(){
 }
 
 //открытие модального окна
-
 function showModal(text,ttl){
   ttl = ttl || '&nbsp;';
   modalWindow_ttl.innerHTML = ttl;
@@ -62,8 +61,14 @@ function showModal(text,ttl){
 
 }
 function modalVisible(){
+  var windowH = document.documentElement.clientHeight;
   modalWindow.style.display='block';
   modalWindowBcg.style.display='block';
+
+  var modalH = modalWindow.offsetHeight;
+  var modalTop = (windowH - modalH)/2;
+  modalWindow.style.top=modalTop+'px';
+
 }
 function modalClose(){
   modalWindow.style.display='none';
