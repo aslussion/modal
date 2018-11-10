@@ -14,16 +14,23 @@ function showModal(param,ttl){
       //ttl-в заголовок окна, 
 
       //показать окно сейчас
-      modalSetTexts(param,ttl);
+      modalVisible(param,ttl);
     break;
     case 'object':
       //показать окно при клике на объект
       param.onclick = function () {
-        var id = param.getAttribute('data-src');
-        var block = document.querySelector(id);
-        if(block){
-          ttl = ttl || '&nbsp;';
-          modalSetTexts(block.innerHTML,ttl);
+        ttl = ttl || '&nbsp;';
+        
+        var id = param.getAttribute('data-id');//элемент
+        var src = param.getAttribute('data-src');//фото
+        if(id){
+          var block = document.querySelector(id);
+          if(block){
+            modalVisible(block.innerHTML,ttl);
+          }
+        }
+        else if(src){
+          modalVisible("<div class='modalWrapImg'><img src='"+src+"'></div>",ttl);
         }
         else
           modalError();
@@ -57,19 +64,8 @@ function showModal(param,ttl){
     modalWindow_close.onclick = function() {
       modalClose();
     }
-    
   }
 
-  function modalVisible(){
-    var windowH = document.documentElement.clientHeight;
-    modalWindow.style.display='block';
-    modalWindowBcg.style.display='block';
-
-    var modalH = modalWindow.offsetHeight;
-    var modalTop = (windowH - modalH)/2;
-    modalWindow.style.top=modalTop+'px';
-
-  }
   function modalClose(){
     modalWindow.style.display='none';
     modalWindowBcg.style.display='none';
@@ -77,10 +73,31 @@ function showModal(param,ttl){
   function modalError(){
     showModal('Ошибка');
   }
-  function modalSetTexts(text,ttl){
+  
+  function modalVisible(text,ttl){
     modalWindow_inner.innerHTML = text; 
     modalWindow_ttl.innerHTML = ttl || '&nbsp;';
-    modalVisible();
+
+    modalWindow.style.display='block';
+    modalWindowBcg.style.display='block';
+
+    //вычислять top после загрузки изображений
+    var images = modalWindow_inner.querySelectorAll('img');
+    //нет изображений
+    if(!images.length)
+      modalSetTop();
+    [].forEach.call( images, function(el) {
+      el.onload = function(){
+        modalSetTop();
+      };
+    });
+  }
+  function modalSetTop(){
+    //вычисление top окна
+    var windowH = document.documentElement.clientHeight;
+    var modalH = modalWindow.offsetHeight;
+    var modalTop = (windowH - modalH)/2;
+    modalWindow.style.top=modalTop+'px';
   }
 
 }
