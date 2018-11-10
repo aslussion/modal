@@ -97,7 +97,14 @@ function showModal(param,ttl){
     var windowH = document.documentElement.clientHeight;
     var modalH = modalWindow.offsetHeight;
     var modalTop = (windowH - modalH)/2;
-    modalWindow.style.top=modalTop+'px';
+    if(modalTop > 0){
+      modalWindow.style.top=modalTop+'px';
+      modalWindow_inner.style.height='auto';
+    }
+    else{
+      modalWindow.style.top=25+'px';
+      modalWindow_inner.style.height=windowH-70+'px';
+    }
   }
 
 }

@@ -16,11 +16,13 @@
   left: 0;
   right: 0;
   margin: auto;
-  width:360px;
+  //width:360px;
+  width: 90%;
   max-width: 95%;
   background:white;
   display: none;
 }
+.modalWindow-inner{overflow: auto;}
 .modalWindow-close{
   position:absolute;
   top:0;
