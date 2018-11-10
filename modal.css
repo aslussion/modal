@@ -12,12 +12,12 @@
 .modalWindow{
   z-index:101;
   position: fixed;
-  //top: 141px;/*нельзя выровнять по центру вертикали, т.к. не задана высота...*/
   top:0;
   left: 0;
   right: 0;
   margin: auto;
   width:360px;
+  max-width: 95%;
   background:white;
   display: none;
 }
@@ -29,4 +29,10 @@
   text-align: center;
   cursor:pointer;
   background:red;
+  z-index: 1;
 }
+
+.modalWrapImg{
+  text-align: center;
+}
+.modalWindow-inner img{max-width: 100%}
