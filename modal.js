@@ -94,6 +94,8 @@ function showModal(param,ttl){
   }
   function modalSetTop(){
     //вычисление top окна
+    modalWindow_inner.style.height='auto';//удаление ранее заданной высоты
+
     var windowH = document.documentElement.clientHeight;
     var modalH = modalWindow.offsetHeight;
     var modalTop = (windowH - modalH)/2;
